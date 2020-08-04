@@ -1,13 +1,16 @@
+SELF := $(abspath $(firstword $(MAKEFILE_LIST)))                                                                                                                          
+SELFDIR := $(dir $(SELF))
+
 GUROBI_MAKEFILE=gurobi.mak 
 
 -include ${GUROBI_MAKEFILE}
 
 CXX=c++
-CXXFLAGS += -std=c++17 -Wall -Wextra -pedantic -fPIC #-Werror
+CXXFLAGS += -m64 -g -std=c++17 -Wall -Wextra -pedantic -fPIC #-Werror
 CPPFLAGS += -Isrc -I${GUROBI_HOME}/include
 LDPATHS += -L${GUROBI_HOME}/lib
-LDFLAGS += -shared ${LDPATHS} 
-LDLIBS += -lgurobi_c++ -lgurobi${GUROBI_VERSION_SUFFIX} -lpthread
+LDFLAGS += ${LDPATHS} 
+LDLIBS += -lgurobi_c++ -lgurobi${GUROBI_VERSION_SUFFIX} -lpthread -lm
 
 SRCDIR=src
 SHARED_LIB=lib/libgrbfrc.so
@@ -18,12 +21,15 @@ HEADERS=$(wildcard $(SRCDIR)/*.hpp) $(wildcard $(SRCDIR)/*/*.hpp)
 OBJECTS=$(patsubst %.cpp, %.o, $(SOURCES))
 DEPS=$(patsubst %.cpp, %.d, $(SOURCES))
 
+EXAMPLE_SOURCES=$(wildcard examples/*.cpp)
+EXAMPLES=$(patsubst examples/%.cpp, examples/%, $(EXAMPLE_SOURCES))
+
 all : $(LIBS) docs examples
 	@#
 
 $(SHARED_LIB) : $(OBJECTS) 
 	@mkdir -p lib
-	$(CXX) -o $@ $^ $(LDFLAGS) $(LDLIBS) $(RUNFLAGS)
+	$(CXX) -shared -o $@ $^ $(LDFLAGS) $(LDLIBS) $(RUNFLAGS)
 
 $(STATIC_LIB) : $(OBJECTS)
 	@mkdir -p lib 
@@ -35,7 +41,10 @@ $(DEPS) : %.d : %.cpp
 $(OBJECTS) : %.o :  
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c -o $@ $<
 
-examples: 
+$(EXAMPLES): examples/% : examples/%.cpp $(SHARED_LIB) 
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -o $@ $< $(LDFLAGS) $(LDLIBS) $(RUNFLAGS) -Llib -lgrbfrc -Wl,-rpath=$(SELFDIR)lib  
+
+examples: $(EXAMPLES)
 	@#
 
 docs: userdocs devdocs 

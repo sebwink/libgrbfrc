@@ -1,5 +1,5 @@
 #include <gurobi_c++.h>
-#include <grbfrc.h>
+#include "grbfrc.hpp"
 
 #include <cmath>
 #include <fstream>

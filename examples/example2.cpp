@@ -1,5 +1,5 @@
 #include <gurobi_c++.h>
-#include <grbfrc.h>
+#include "grbfrc.hpp"
 
 using FMILP= grbfrc::FMILP;
 

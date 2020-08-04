@@ -1,6 +1,6 @@
 #include <gurobi_c++.h>
-#include <grbfrc.h>
-#include <grbfrc/YGGY.h>
+#include "grbfrc.hpp"
+#include "YGGY.hpp"
 
 using FMILP = grbfrc::FMILP;
 
