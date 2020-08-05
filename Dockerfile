@@ -15,7 +15,7 @@ COPY Makefile .
 COPY gurobi.mak .
 COPY src src
 
-RUN make clean && make lib/libgrbfrc.so 
+RUN make clean && GUROBI_VERSION=${GUROBI_VERSION} make lib/libgrbfrc.so 
 
 FROM sebwink/gurobi:${GUROBI_VERSION}
 
