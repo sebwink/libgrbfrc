@@ -1,0 +1,3 @@
+[submodule "upstream/gurobi-docker"]
+	path = upstream/gurobi-docker
+	url = https://github.com/sebwink/gurobi-docker

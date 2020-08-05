@@ -51,7 +51,8 @@ docker: docker@$(GUROBI_VERSION)
 	@#
 
 docker@%:
-	@docker build . --build-arg GUROBI_VERSION=$* -t sebwink/libgrbfrc-grb$*:local
+	@cd upstream/gurobi-docker && make gurobi@$*-local 
+	@docker build . --build-arg GUROBI_VERSION=$*-local -t sebwink/libgrbfrc-grb$*:local
 
 docs: userdocs devdocs 
 	@#
