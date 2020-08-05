@@ -2,6 +2,8 @@ ARG GUROBI_VERSION
 
 FROM sebwink/gurobi:${GUROBI_VERSION} as build 
 
+ARG GUROBI_VERSION
+
 USER root
 
 RUN apt-get update && \
@@ -15,7 +17,8 @@ COPY Makefile .
 COPY gurobi.mak .
 COPY src src
 
-RUN make clean && GUROBI_VERSION=${GUROBI_VERSION} make lib/libgrbfrc.so 
+RUN echo $GUROBI_VERSION
+RUN make clean && make lib/libgrbfrc.so 
 
 FROM sebwink/gurobi:${GUROBI_VERSION}
 
