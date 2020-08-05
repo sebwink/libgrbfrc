@@ -1,4 +1,4 @@
-## Welcome to GitHub Pages
+## libgrbfrc - Solving mixed-integer fractional programs with Gurobi and C++
 
 You can use the [editor on GitHub](https://github.com/sebwink/libgrbfrc/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
