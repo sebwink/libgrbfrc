@@ -1,4 +1,4 @@
-## Documentation for users
+## Documentation for developers and other interested entities
 
-[Master branch]{latest/index.html}
+[Master branch]{libgrbfrc/docs/dev/latest/index.html}
 
