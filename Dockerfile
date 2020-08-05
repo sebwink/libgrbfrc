@@ -1,4 +1,8 @@
-FROM sebwink/gurobi-cpp:810 as build 
+ARG GUROBI_VERSION
+
+FROM sebwink/gurobi:${GUROBI_VERSION} as build 
+
+USER root
 
 RUN apt-get update && \
     apt-get upgrade -y && \
@@ -7,13 +11,13 @@ RUN apt-get update && \
 
 WORKDIR /grbfrc
 
-COPY docker/Makefile .
+COPY Makefile .
+COPY gurobi.mak .
 COPY src src
-COPY include include
 
-RUN make 
+RUN make clean && make lib/libgrbfrc.so 
 
-FROM sebwink/gurobi-cpp:810
+FROM sebwink/gurobi:${GUROBI_VERSION}
 
 COPY --from=build /grbfrc/lib/libgrbfrc.so /usr/local/lib/
-COPY --from=build /grbfrc/include/grbfrc /usr/local/include/grbfrc
+COPY --from=build /grbfrc/src/*.hpp /usr/local/include/

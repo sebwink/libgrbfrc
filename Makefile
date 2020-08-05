@@ -47,6 +47,12 @@ $(EXAMPLES): examples/% : examples/%.cpp $(SHARED_LIB)
 examples: $(EXAMPLES)
 	@#
 
+docker: docker@$(GUROBI_VERSION)
+	@#
+
+docker@%:
+	@docker build . --build-arg GUROBI_VERSION=$* -t sebwink/libgrbfrc-grb$*:local
+
 docs: userdocs devdocs 
 	@#
 
