@@ -1,4 +1,4 @@
 ## Documentation for users
 
-[Master branch]{latest/index.html}
+[Master branch](latest/index.html)
 
