@@ -18,7 +18,7 @@ COPY gurobi.mak .
 COPY src src
 
 RUN echo $GUROBI_VERSION
-RUN make clean && make lib/libgrbfrc.so 
+RUN make clean && GUROBI_VERSION_TAG=${GUROBI_VERSION} make lib/libgrbfrc.so 
 
 FROM sebwink/gurobi:${GUROBI_VERSION}
 
