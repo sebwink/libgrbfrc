@@ -24,3 +24,5 @@ FROM sebwink/gurobi:${GUROBI_VERSION}
 
 COPY --from=build /grbfrc/lib/libgrbfrc.so /usr/local/lib/
 COPY --from=build /grbfrc/src/*.hpp /usr/local/include/
+RUN mkdir /usr/local/include/grbfrc
+COPY --from=build /grbfrc/src/*.hpp /usr/local/include/grbfrc/
