@@ -2,6 +2,8 @@ ARG GUROBI_VERSION
 
 FROM sebwink/gurobi:${GUROBI_VERSION} as build 
 
+RUN echo "sebwink/gurobi:${GUROBI_VERSION}"
+
 ARG GUROBI_VERSION
 
 USER root
@@ -18,7 +20,7 @@ COPY gurobi.mak .
 COPY src src
 
 RUN echo $GUROBI_VERSION
-RUN make clean && GUROBI_VERSION_TAG=${GUROBI_VERSION} make lib/libgrbfrc.so 
+RUN make clean && GUROBI_VERSION_TAG=$(echo $GUROBI_VERSION | tr "-" " " | awk ' { print $1 } ') make lib/libgrbfrc.so 
 
 FROM sebwink/gurobi:${GUROBI_VERSION}
 
