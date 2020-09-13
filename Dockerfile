@@ -5,6 +5,7 @@ FROM sebwink/gurobi:${GUROBI_VERSION} as build
 RUN echo "sebwink/gurobi:${GUROBI_VERSION}"
 
 ARG GUROBI_VERSION
+ARG GUROBI_USER
 
 USER root
 
