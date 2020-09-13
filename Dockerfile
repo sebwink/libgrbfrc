@@ -20,7 +20,9 @@ COPY Makefile .
 COPY gurobi.mak .
 COPY src src
 
-RUN echo $GUROBI_VERSION
+RUN echo ${GUROBI_VERSION}
+RUN GUROBI_VERSION_TAG=$(echo ${GUROBI_VERSION} | tr "-" " " | awk ' { print $1 } ') make gurobi_major && \
+    GUROBI_VERSION_TAG=$(echo ${GUROBI_VERSION} | tr "-" " " | awk ' { print $1 } ') make gurobi_minor
 RUN make clean && GUROBI_VERSION_TAG=$(echo ${GUROBI_VERSION} | tr "-" " " | awk ' { print $1 } ') make lib/libgrbfrc.so 
 
 FROM sebwink/gurobi:${GUROBI_VERSION}
