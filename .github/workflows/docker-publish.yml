@@ -15,7 +15,7 @@ on:
 env:
   # TODO: Change variable to your image's name.
   IMAGE_NAME: libgrbfrc
-  GUROBI_VERSIONS: upstream/libgrbfrc/upstream/gurobi-docker/GUROBI_VERSIONS
+  GUROBI_VERSIONS: upstream/gurobi-docker/GUROBI_VERSIONS
   GUROBI_USER: gurobi
 
 jobs:
